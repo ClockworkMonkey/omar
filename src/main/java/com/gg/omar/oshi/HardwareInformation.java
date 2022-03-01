@@ -17,16 +17,16 @@ public class HardwareInformation {
         long[] systemCpuLoadTicks = processor.getSystemCpuLoadTicks();
         TimeUnit.SECONDS.sleep(1);
         long[] ticks = processor.getSystemCpuLoadTicks();
+        long user = ticks[CentralProcessor.TickType.USER.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.USER.getIndex()];
         long nice = ticks[CentralProcessor.TickType.NICE.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.NICE.getIndex()];
+        long sys = ticks[CentralProcessor.TickType.SYSTEM.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.SYSTEM.getIndex()];
+        long idle = ticks[CentralProcessor.TickType.IDLE.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.IDLE.getIndex()];
+        long iowait = ticks[CentralProcessor.TickType.IOWAIT.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.IOWAIT.getIndex()];
         long irq = ticks[CentralProcessor.TickType.IRQ.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.IRQ.getIndex()];
         long softirq = ticks[CentralProcessor.TickType.SOFTIRQ.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()];
         long steal = ticks[CentralProcessor.TickType.STEAL.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.STEAL.getIndex()];
-        long cSys = ticks[CentralProcessor.TickType.SYSTEM.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.SYSTEM.getIndex()];
-        long user = ticks[CentralProcessor.TickType.USER.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.USER.getIndex()];
-        long ioWait = ticks[CentralProcessor.TickType.IOWAIT.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.IOWAIT.getIndex()];
-        long idle = ticks[CentralProcessor.TickType.IDLE.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.IDLE.getIndex()];
-        long total = user + nice + cSys + idle + ioWait + irq + softirq + steal;
-        return new DecimalFormat("#.##").format(1.0 - (idle * 1.0 / total));
+        long totalCpu = user + nice + sys + idle + iowait + irq + softirq + steal;
+        return new DecimalFormat("#.##").format(1.0 - (idle * 1.0 / totalCpu));
     }
 
     public static String getMemoryUsage() {

@@ -7,8 +7,8 @@ import java.net.InetSocketAddress;
 
 public class UDPClient {
 
-    public void send(String message) {
-        InetSocketAddress inetSocketAddress = new InetSocketAddress("10.134.229.68", 8010);
+    public static void send(String message) {
+        InetSocketAddress inetSocketAddress = new InetSocketAddress("192.168.90.121", 8001);
         byte[] messageBytes = message.getBytes();
         try (DatagramSocket datagramSocket = new DatagramSocket()) {
             DatagramPacket datagramPacket = new DatagramPacket(messageBytes, messageBytes.length, inetSocketAddress);
