@@ -28,8 +28,7 @@ public class MyApplicationRunner implements ApplicationRunner {
                 System.out.println(cpuUsage + "," + memoryUsage);
                 UDPClient.send(cpuUsage + "," + memoryUsage);
             }
-        }, 1000, 2000);
-
+        }, 2000, 500);
 
     }
 
