@@ -26,7 +26,7 @@ public class HardwareInformation {
         long softirq = ticks[CentralProcessor.TickType.SOFTIRQ.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()];
         long steal = ticks[CentralProcessor.TickType.STEAL.getIndex()] - systemCpuLoadTicks[CentralProcessor.TickType.STEAL.getIndex()];
         long totalCpu = user + nice + sys + idle + iowait + irq + softirq + steal;
-        return new DecimalFormat("#.##").format(1.0 - (idle * 1.0 / totalCpu));
+        return new DecimalFormat("0.00").format(1.0 - (idle * 1.0 / totalCpu));
     }
 
     public static String getMemoryUsage() {
@@ -36,7 +36,7 @@ public class HardwareInformation {
         double total = globalMemory.getTotal();
         double available = globalMemory.getAvailable();
         double usage = (total - available) / total;
-        return new DecimalFormat("#.##").format(usage);
+        return new DecimalFormat("0.00").format(usage);
     }
 
 }
